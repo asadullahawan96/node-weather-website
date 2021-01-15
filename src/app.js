@@ -1,9 +1,11 @@
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
-const forecast =  require('./utils/forecast')
-const geocode = require('./utils/geocode')
 const app = express()
+var bodyParser = require('body-parser')
+var multer = require('multer')
+var upload = multer()
+
 const port = process.env.PORT || 3000
 
 // Define paths for Express config
@@ -18,74 +20,32 @@ hbs.registerPartials(partialsPath)
 
 // Setup static directory to serve
 app.use(express.static(publicDirectoryPath))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(upload.array()); 
+
+const admin=require('firebase-admin');
+var serviceAccount = require('./getlocation-4e371-firebase-adminsdk-ejf0i-653742a6d2.json');
+admin.initializeApp({
+credential: admin.credential.cert(serviceAccount),
+databaseURL: "https://getlocation-4e371-default-rtdb.firebaseio.com/",
+authDomain: "getlocation-4e371.firebaseapp.com",
+});
+
+var db=admin.database();
+var ref = db.ref("restricted_access/secret_document");
+var usersRef = ref.child("users");
+
+app.post('', async(req, res) =>{
+    usersRef.push().set({...req.body});
+    res.render('index');
+});
 
 app.get('', (req, res) => {
     res.render('index', {
-        title: 'Weather',
+        title: 'Khidmat',
         name: 'App Builder'
-    })
-})
-
-app.get('/about', (req, res) => {
-    res.render('about', {
-        title: 'About Me',
-        name: 'App Builder'
-    })
-})
-
-app.get('/help', (req, res) => {
-    res.render('help', {
-        helpText: 'This is some helpful text.',
-        title: 'Help',
-        name: 'App Builder'
-    })
-})
-
-app.get('/weather', (req, res) => {
-    if(!req.query.search){
-        return res.send({
-            error:'please add an address'    
-        })
-    }
-    const address = req.query.search
-    geocode(address, (error,{lat,lon,loc} = {}) =>{
-        if(error){
-          return res.send({error})
-        }
-        forecast(lat, lon, (error, {temperature}) => {
-          if(error){
-            return res.send({error})
-          }
-          res.send({location : loc ,
-            temperature: temperature})
-        })
-    })
-})
-
-app.get('/products', (req, res) => {
-    if(!req.query.search){
-        return res.send({
-            error:'please add a search'    
-        })
-    }
-    res.send({
-        products:[]    
-    })
-})
-
-app.get('/help/*', (req, res) => {
-    res.render('404', {
-        title: '404',
-        name: 'App Builder',
-        errorMessage: 'Help article not found.'
-    })
-})
-
-app.get('*', (req, res) => {
-    res.render('404', {
-        title: '404',
-        name: 'App Builder',
-        errorMessage: 'Page not found.'
     })
 })
 

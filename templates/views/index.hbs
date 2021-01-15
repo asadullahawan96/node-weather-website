@@ -1,62 +1,138 @@
-{{!-- <!DOCTYPE html>
-
-<html>
-
+<!doctype html>
+<html lang="en">
 <head>
-    <title>Weather</title>
-    <link rel="icon" href="/img/weather.png">
-    <link rel="stylesheet" href="/css/styles.css">
-    
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>KHIDMAT</title>
+	<link rel='stylesheet' href='assets/css/bootstrap.min.css'>
+	<link rel='stylesheet' href='assets/css/animate.min.css'>
+	<link rel='stylesheet' href="assets/css/font-awesome.min.css">
+	<link rel='stylesheet' href="assets/css/style.css">
+	<link href='http://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700,800' rel='stylesheet' type='text/css'>	
+	<link rel="shortcut icon" type="image/jpg" href="/img/logo.jpg"/>
 </head>
-
 <body>
-    <div class="main-content">
-        {{>header}}
-
-        <p>Use this site to get your weather!</p>
-
-        <form>
-        <input placeholder="Location">
-        <button>Search</button>
-        </form>
-
-        <p id = "1"></p>
-        <p id = "2"></p>
-
-    </div>
-
-    {{>footer}}
-    <script src="/js/app.js"></script>
-</body>
-
-</html> --}}
-
-<!DOCTYPE html>
-<html>
-<body>
-
-<p>Click the button to get your coordinates.</p>
-
-<button onclick="getLocation()">Try It</button>
-
-<p id="demo"></p>
+<header id="header" class="navbar navbar-inverse navbar-fixed-top" role="banner">
+<div class="container">
+		<a href="https://khidmat.herokuapp.com"><img src="/img/logo.jpg" style="width:100px;height:100px;"></a>
+</div>
+</header>
+<section id="khidmat" class="parallax section" style="background-image: url(http://themepush.com/demo/runcharity/assets/img/1.jpg);">
+<div class="wrapsection">
+	<div class="parallax-overlay" style="background-color: #d18f01;opacity:0.9;"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-5">
+				<div class="herotext">
+					<h1 class="wow bounceInDown" data-wow-duration="1s" data-wow-delay="0.1s">KHIDMAT</h1>
+					<p class="lead wow zoomIn" data-wow-duration="2s" data-wow-delay="0.5s">
+						When we give cheerfully and accept gratefully, everyone is blessed.
+					</p>
+					<p>
+            <button class="btn btn-default btn-lg wow fadeInLeft" onclick="getLocation()">Care</button>
+	<form action="" method="post" id="loc">
+  	<input type="hidden" id="latitude" name="loc[latitude]" value="">
+  	<input type="hidden" id="longitude" name="loc[longitude]" value="">
+	</form>
+		</p>
+		<p>	
+		*Note: We are currently in test mode of our online system, 
+		that is why we are not accepting donations at the moment.
+		Please click on Care button and allow location for better reach 
+		and help us build awesome audience.
+		</p>
+		</div>
+		</div>
+		<div class="col-md-7">
+		</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="maintitle">
+					<br>
+		<hr>
+		<br>
+					<h3 class="section-title"><strong>FIND <span class="lighter">CAUSE</span></strong> to support on your run</h3>
+					<p class="lead"></p>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6">
+				<div class="service-box wow flipInY" data-wow-duration="1.5s" data-wow-delay="0.1s">
+					<span class="glyphicon glyphicon-stats"></span>
+					<h3>1386 Volunteers</h3>
+					<p>
+					</p>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6">
+				<div class="service-box wow flipInY" data-wow-duration="1.5s" data-wow-delay="0.2s">
+					<span class="glyphicon glyphicon-tree-deciduous"></span>
+					<h3>195 Cities</h3>
+					<p>
+					</p>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6">
+				<div class="service-box wow flipInY" data-wow-duration="1.5s" data-wow-delay="0.3s">
+					<span class="glyphicon glyphicon-heart"></span>
+					<h3>268 Sponsors</h3>
+					<p>
+					</p>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6">
+				<div class="service-box wow flipInY" data-wow-duration="1.5s" data-wow-delay="0.4s">
+					<span class="glyphicon glyphicon-usd"></span>
+					<h3>$56470 Donated</h3>
+					<p>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</section>
+<section class="whitecolor parallax section" style="background-image: url(/img/charity.jpg);">
+<div class="wrapsection">
+	<div class="container">
+	<div class="row">
+		<div class="col-md-12 sol-sm-12">
+			<div class="maintitle">
+				<h3 class="section-title justtitle">Charity <span class="wow flipInX">&amp; love</span> are the same</h3>
+				<p class="lead bottom0">
+					 </p>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+</section>
+<section id="credits" class="text-center">
+	Copyright &copy; <a href="#">KHDIMAT</a> 
+</section>
 
 <script>
-var x = document.getElementById("demo");
-
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.watchPosition(showPosition);
-  } else { 
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-    
-function showPosition(position) {
-    x.innerHTML="Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude;
-}
+	function getLocation() {
+	  if (navigator.geolocation) {
+		navigator.geolocation.watchPosition(showPosition);
+	  }
+	}
+	function showPosition(position) {
+	  document.getElementById('latitude').value = position.coords.latitude;
+	  document.getElementById('longitude').value = position.coords.longitude;
+      document.getElementById('loc').submit();
+	}
 </script>
 
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/waypoints.min.js"></script>
+<script src="assets/js/jquery.scrollTo.min.js"></script>
+<script src="assets/js/jquery.localScroll.min.js"></script>
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<script src="assets/js/validate.js"></script>
+<script src="assets/js/common.js"></script>
 </body>
 </html>
